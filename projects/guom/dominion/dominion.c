@@ -650,6 +650,7 @@ void adventurerCard(int drawntreasure, int currentPlayer, struct gameState *stat
 {
 
   int cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
+                                                                                //bug introduced: incorrect placement
 
   while(drawntreasure<2){
     if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
@@ -735,7 +736,7 @@ void stewardCard(int choice1, int choice2, int choice3, int currentPlayer, struc
     discardCard(choice3, currentPlayer, state, 1);
 
           //discard card from hand
-    discardCard(handPos, currentPlayer, state, 0);
+    discardCard(handPos, currentPlayer, state, 0);          //bug introduced: only discards steward in 3rd choice
   }
       
 
