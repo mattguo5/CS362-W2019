@@ -6,11 +6,12 @@ dominion.c
 
 *****************************************************/
 #include "dominion.h"
+#include "dominion_helpers.h"
+#include <string.h>
 #include <stdio.h>
 #include "rngs.h"
-#include <stdlib.h>
 
-int buyCard(int n, struct gameState *g);
+
 
 
 int main(int argc, char** argv){

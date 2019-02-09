@@ -6,17 +6,18 @@ dominion.c
 
 *****************************************************/
 #include "dominion.h"
+#include "dominion_helpers.h"
+#include <string.h>
 #include <stdio.h>
 #include "rngs.h"
-#include <stdlib.h>
 
-int getCost(int n);
+
 
 int main(int argc, char** argv){
 
 int count = 0;
 
-if(getCost(curse) == 0){
+if(!getCost(curse)){
 	printf("curse card good! \n");
 	count++;
 }
