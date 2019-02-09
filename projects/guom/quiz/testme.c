@@ -14,7 +14,7 @@ char *inputString()
     int size;
     int i;
 
-    size = (rand() % 10) + 4;
+    size = 5;//(rand() % 10) + 4;
 
     char *randomString = NULL;
 
