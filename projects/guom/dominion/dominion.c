@@ -294,7 +294,7 @@ int buyCard(int supplyPos, struct gameState *state) {
   } else {
     state->phase=1;
     //state->supplyCount[supplyPos]--;
-    gainCard(supplyPos, state, 0, who); //card goes in discard, this might be wrong.. (2 means goes into hand, 0 goes into discard)
+    gainCard(supplyPos, state, 2, who); //card goes in discard, this might be wrong.. (2 means goes into hand, 0 goes into discard)
   
     state->coins = (state->coins) - (getCost(supplyPos));
     state->numBuys--;
@@ -649,20 +649,21 @@ Refactored code functions
 void adventurerCard(int drawntreasure, int currentPlayer, struct gameState *state, int z, int *temphand)
 {
 
-  int cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
-                                                                                //bug introduced: incorrect placement
+  //top card of hand is most recently drawn card.
+ 
 
   while(drawntreasure<2){
     if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
       shuffle(currentPlayer, state);
     }
     drawCard(currentPlayer, state);
+    int cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];
     if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
       drawntreasure++;
     else{
       temphand[z]=cardDrawn;
-      state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
-      z++;
+      state->handCount[currentPlayer]++; //this should just remove the top card (the most recently drawn one).
+      z++;                              //bug introduced: increment instead of decrement
     }
   }
   while(z-1>=0){
@@ -670,6 +671,7 @@ void adventurerCard(int drawntreasure, int currentPlayer, struct gameState *stat
     z=z-1;
   }
 }
+
 
 void smithyCard(int currentPlayer, struct gameState *state, int handPos)
 {
