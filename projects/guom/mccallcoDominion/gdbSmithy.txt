@@ -1,0 +1,158 @@
+Breakpoint 1 at 0x401052: file cardtest1.c, line 25.
+Breakpoint 2 at 0x40117c: file cardtest1.c, line 40.
+Starting program: /nfs/stak/users/guom/CS362-W2019/projects/guom/mccallcoDominion/cardtest1 
+
+Breakpoint 1, main (argc=1, argv=0x7fffffffe158) at cardtest1.c:26
+26		buyCard(smithy, &Game);
+buyCard (supplyPos=13, state=0x7fffffff79a0) at dominion.c:419
+419	  who = state->whoseTurn;
+421	  if (state->numBuys < 1){
+425	  } else if (supplyCount(supplyPos, state) <1){
+Undefined command: "nect".  Try "help".
+429	  } else if (state->coins < getCost(supplyPos)){
+Continuing.
+
+Breakpoint 2, main (argc=1, argv=0x7fffffffe158) at cardtest1.c:40
+40		Game.phase = 0;
+41		playCard(smithyPos, -1, -1, -1, &Game);
+playCard (handPos=5, choice1=-1, choice2=-1, choice3=-1, state=0x7fffffff79a0)
+    at dominion.c:373
+373	  int coin_bonus = 0; 		//tracks coins gain from actions
+376	  if (state->phase != 0)
+382	  if ( state->numActions < 1 )
+388	  card = handCard(handPos, state);
+391	  if ( card < adventurer || card > treasure_map )
+397	  if ( cardEffect(card, choice1, choice2, choice3, state, handPos, &coin_bonus) < 0 )
+403	  state->numActions--;
+406	  updateCoins(state->whoseTurn, state, coin_bonus);
+408	  return 0;
+409	}
+main (argc=1, argv=0x7fffffffe158) at cardtest1.c:43
+43		if(numHandCards(&Game) == 5 - 1 + 3){
+48		if(count == 2){
+52			printf("Test failed! \n");
+Target child does not support this command.
+Target child does not support this command.
+The program being debugged has been started already.
+Start it from the beginning? (y or n) 
+Starting program: /nfs/stak/users/guom/CS362-W2019/projects/guom/mccallcoDominion/cardtest1 
+
+Breakpoint 1, main (argc=1, argv=0x7fffffffe158) at cardtest1.c:26
+26		buyCard(smithy, &Game);
+Continuing.
+
+Breakpoint 2, main (argc=1, argv=0x7fffffffe158) at cardtest1.c:40
+40		Game.phase = 0;
+41		playCard(smithyPos, -1, -1, -1, &Game);
+playCard (handPos=5, choice1=-1, choice2=-1, choice3=-1, state=0x7fffffff79a0)
+    at dominion.c:373
+373	  int coin_bonus = 0; 		//tracks coins gain from actions
+376	  if (state->phase != 0)
+382	  if ( state->numActions < 1 )
+388	  card = handCard(handPos, state);
+391	  if ( card < adventurer || card > treasure_map )
+397	  if ( cardEffect(card, choice1, choice2, choice3, state, handPos, &coin_bonus) < 0 )
+cardEffect (card=13, choice1=-1, choice2=-1, choice3=-1, state=0x7fffffff79a0, 
+    handPos=5, bonus=0x7fffffff7948) at dominion.c:791
+791	  int currentPlayer = whoseTurn(state);
+whoseTurn (state=0x7fffffff79a0) at dominion.c:486
+486	  return state->whoseTurn;
+487	}
+cardEffect (card=13, choice1=-1, choice2=-1, choice3=-1, state=0x7fffffff79a0, 
+    handPos=5, bonus=0x7fffffff7948) at dominion.c:792
+792	  int nextPlayer = currentPlayer + 1;
+794	  int tributeRevealedCards[2] = {-1, -1};
+796	  int drawntreasure=0;
+797	  int z = 0;// this is the counter for the temp hand
+798	  if (nextPlayer > (state->numPlayers - 1)){
+804	  switch( card ) 
+860	      switchSmithy(state, currentPlayer, handPos);
+switchSmithy (state=0x7fffffff79a0, currentPlayer=0, handPos=5)
+    at dominion.c:33
+33	  for (int i = 0; i < 5; i++)       //***BUG: changed loop limit to 5 from 3
+35		  drawCard(currentPlayer, state);
+drawCard (player=0, state=0x7fffffff79a0) at dominion.c:667
+667	  if (state->deckCount[player] <= 0){//Deck is empty
+707	    int count = state->handCount[player];//Get current hand count for player
+Hardware watchpoint 3: count
+Hardware watchpoint 3: count
+
+Old value = 0
+New value = 6
+drawCard (player=0, state=0x7fffffff79a0) at dominion.c:713
+713	    deckCounter = state->deckCount[player];//Create holder for the deck count
+714	    state->hand[player][count] = state->deck[player][deckCounter - 1];//Add card to the hand
+715	    state->deckCount[player]--;
+716	    state->handCount[player]++;//Increment hand count
+Hardware watchpoint 4: state->handCount[player]
+Hardware watchpoint 4: state->handCount[player]
+
+Old value = 6
+New value = 7
+0x0000000000403aa6 in drawCard (player=0, state=0x7fffffff79a0)
+    at dominion.c:716
+716	    state->handCount[player]++;//Increment hand count
+719	  return 0;
+720	}
+
+Watchpoint 3 deleted because the program has left the block in
+which its expression is valid.
+
+Watchpoint 4 deleted because the program has left the block in
+which its expression is valid.
+switchSmithy (state=0x7fffffff79a0, currentPlayer=0, handPos=5)
+    at dominion.c:33
+33	  for (int i = 0; i < 5; i++)       //***BUG: changed loop limit to 5 from 3
+35		  drawCard(currentPlayer, state);
+drawCard (player=0, state=0x7fffffff79a0) at dominion.c:667
+667	  if (state->deckCount[player] <= 0){//Deck is empty
+707	    int count = state->handCount[player];//Get current hand count for player
+713	    deckCounter = state->deckCount[player];//Create holder for the deck count
+714	    state->hand[player][count] = state->deck[player][deckCounter - 1];//Add card to the hand
+715	    state->deckCount[player]--;
+716	    state->handCount[player]++;//Increment hand count
+Hardware watchpoint 5: state->handCount[player]
+Hardware watchpoint 5: state->handCount[player]
+
+Old value = 7
+New value = 8
+0x0000000000403aa6 in drawCard (player=0, state=0x7fffffff79a0)
+    at dominion.c:716
+716	    state->handCount[player]++;//Increment hand count
+719	  return 0;
+720	}
+
+Watchpoint 5 deleted because the program has left the block in
+which its expression is valid.
+switchSmithy (state=0x7fffffff79a0, currentPlayer=0, handPos=5)
+    at dominion.c:33
+33	  for (int i = 0; i < 5; i++)       //***BUG: changed loop limit to 5 from 3
+35		  drawCard(currentPlayer, state);
+33	  for (int i = 0; i < 5; i++)       //***BUG: changed loop limit to 5 from 3
+35		  drawCard(currentPlayer, state);
+33	  for (int i = 0; i < 5; i++)       //***BUG: changed loop limit to 5 from 3
+35		  drawCard(currentPlayer, state);
+33	  for (int i = 0; i < 5; i++)       //***BUG: changed loop limit to 5 from 3
+39	  discardCard(handPos, currentPlayer, state, 0);
+40	  return;
+41	}
+cardEffect (card=13, choice1=-1, choice2=-1, choice3=-1, state=0x7fffffff79a0, 
+    handPos=5, bonus=0x7fffffff7948) at dominion.c:861
+861	      return 0;
+1245	}
+playCard (handPos=5, choice1=-1, choice2=-1, choice3=-1, state=0x7fffffff79a0)
+    at dominion.c:403
+403	  state->numActions--;
+406	  updateCoins(state->whoseTurn, state, coin_bonus);
+408	  return 0;
+409	}
+main (argc=1, argv=0x7fffffffe158) at cardtest1.c:43
+43		if(numHandCards(&Game) == 5 - 1 + 3){
+48		if(count == 2){
+52			printf("Test failed! \n");
+58		return 0;
+59	}__libc_start_main (main=0x400f7d <main>, argc=1, ubp_av=0x7fffffffe158, 
+    init=<optimized out>, fini=<optimized out>, rtld_fini=<optimized out>, 
+    stack_end=0x7fffffffe148) at ../csu/libc-start.c:308
+308	  exit (result);
+[Inferior 1 (process 4663) exited normally]
