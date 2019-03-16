@@ -45,6 +45,32 @@ unittestresults: unittest1.c unittest2.c unittest3.c unittest4.c cardtest1.c car
 	gcov dominion.c -f -b >> unittestresults.out
 	cat dominion.c.gcov >> unittestresults.out
 
+randomtestresults: randomtestcard1.c randomtestcard2.c dominion.o
+
+	echo "randomtestcard1.c:" >> randomtestcard1.out
+	gcc -o randomtestcard1 randomtestcard1.c -g dominion.o rngs.o $(CFLAGS)
+	./randomtestcard1 >> randomtestcard1.out
+	gcov dominion.c -b >> randomtestcard1.out
+	gcov dominion.c -f -b >> randomtestcard1.out
+	cat dominion.c.gcov >> randomtestcard1.out
+
+	echo "randomtestcard2.c:" >> randomtestcard2.out
+	gcc -o randomtestcard2 randomtestcard2.c -g dominion.o rngs.o $(CFLAGS)
+	./randomtestcard2 >> randomtestcard2.out
+	gcov dominion.c -b >> randomtestcard2.out
+	gcov dominion.c -f -b >> randomtestcard2.out
+	cat dominion.c.gcov >> randomtestcard2.out
+
+	echo "randomtestadventurer.c:" >> randomtestadventurer.out
+	gcc -o randomtestadventurer randomtestadventurer.c -g dominion.o rngs.o $(CFLAGS)
+	./randomtestadventurer >> randomtestadventurer.out
+	gcov dominion.c -b >> randomtestadventurer.out
+	gcov dominion.c -f -b >> randomtestadventurer.out
+	cat dominion.c.gcov >> randomtestadventurer.out
+
+#	gcov dominion.c -b >> randomtestcard1.out
+#	gcov dominion.c -f -b >> randomtestcard1.out
+
 rngs.o: rngs.h rngs.c
 	gcc -c rngs.c -g  $(CFLAGS)
 
